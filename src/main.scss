@@ -1,0 +1,26 @@
+@import "~antd/dist/antd.css";
+
+.Header {
+  background-color: antiquewhite;
+  color: blue;
+}
+
+.Content {
+  background-color: cornsilk;
+  height: 200vh;
+}
+
+.Footer {
+  background-color: olivedrab;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.Logo {
+  //justify-content: center;
+  color: olivedrab;
+  text-align: center;
+}
+

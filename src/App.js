@@ -1,36 +1,42 @@
-import React, { useState, useEffect } from "react";
-import Count from "./components/Count";
-import Fetch from "./components/Fetch";
-import { useSelector } from "react-redux";
-import ContactPage from "./components/ContactPage";
+import React from "react";
+import "./main.scss"
+// import './antd/css'
+import {Layout, Menu} from 'antd'
+import HeaderWrapper from "./Header";
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom"
 
-export const App = () => {
-  const { load, data } = useSelector((state) => state.ExampleFetchReducer);
-  const contact = useSelector((state) => state.form.contact);
-  const [inputVal, setInputVal] = useState("");
+const {Header, Content, Footer} = Layout
+export default class App extends React.Component {
+    render(){
+        return (
+            <div>
+                <Layout>
+                    <Header className="Header"><HeaderWrapper /></Header>
 
-  //redux form value 들어갈 때, React hooks state 임시 저장용
-  useEffect(updateValue, [contact]);
-  function updateValue() {
-    if (contact && JSON.stringify(contact.values.name)) {
-      const value = JSON.stringify(contact.values.name);
-      setInputVal(value);
-      console.log(value);
+                    <Content className="Content">
+                        <Router>
+                            <Menu theme="dark" mode="horizontal">
+                                <Menu.Item key="1"><Link to="/">Menu 1</Link></Menu.Item>
+                                <Menu.Item key="2"><Link to="/about">Menu 2</Link></Menu.Item>
+                                <Menu.Item key="3"><Link to="/users">Menu 3</Link></Menu.Item>
+                            </Menu>
+                            <Switch>
+                                <Route path="/about">
+                                    ABOUT page
+                                </Route>
+                                <Route path="/users">
+                                    USERS page
+                                </Route>
+                                <Route path="/">
+                                    Main page
+                                </Route>
+                            </Switch>
+                        </Router>
+                    </Content>
+                    <Footer className="Footer">Footer</Footer>
+                </Layout>
+            </div>
+        )
     }
-  }
+}
 
-  return (
-    <>
-      <h1>Hello World!</h1>
-      <Count />
-      <Fetch load={load} data={data} />
-      <h1> ===== Form =====</h1>
-      <ContactPage />
-      <div>
-        Contact name is
-        {contact && JSON.stringify(contact.values.name)}
-      </div>
-      <div> Input Value : {inputVal}</div>
-    </>
-  );
-};
